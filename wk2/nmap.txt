@@ -1,0 +1,62 @@
+1.
+root@lamp-s-1vcpu-1gb-tor1-01:~# nmap 178.128.239.9
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2020-01-13 20:11 UTC
+Nmap scan report for lamp-s-1vcpu-1gb-tor1-01 (178.128.239.9)
+Host is up (0.000014s latency).
+Not shown: 997 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+25/tcp open  smtp
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 1.74 seconds
+
+2.
+root@lamp-s-1vcpu-1gb-tor1-01:~# nmap -p 80 178.128.239.9
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2020-01-13 20:12 UTC
+Nmap scan report for lamp-s-1vcpu-1gb-tor1-01 (178.128.239.9)
+Host is up (0.000064s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.29 seconds
+
+3.
+root@lamp-s-1vcpu-1gb-tor1-01:~# nmap -p 70-80 178.128.239.9
+Starting Nmap 7.60 ( https://nmap.org ) at 2020-01-13 20:13 UTC
+Nmap scan report for lamp-s-1vcpu-1gb-tor1-01 (178.128.239.9)
+Host is up (0.000037s latency).
+
+PORT   STATE  SERVICE
+70/tcp closed gopher
+71/tcp closed netrjs-1
+72/tcp closed netrjs-2
+73/tcp closed netrjs-3
+74/tcp closed netrjs-4
+75/tcp closed priv-dial
+76/tcp closed deos
+77/tcp closed priv-rje
+78/tcp closed vettcp
+79/tcp closed finger
+80/tcp open   http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.50 seconds
+
+
+4.
+root@lamp-s-1vcpu-1gb-tor1-01:~# nmap -F 178.128.239.9
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2020-01-13 20:14 UTC
+Nmap scan report for lamp-s-1vcpu-1gb-tor1-01 (178.128.239.9)
+Host is up (0.000015s latency).
+Not shown: 97 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+25/tcp open  smtp
+80/tcp open  http
+
+Nmap done: 1 IP address (1 host up) scanned in 1.52 seconds
+

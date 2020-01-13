@@ -1,0 +1,59 @@
+1.Domain Name: na.leagueoflegends.com
+
+Top Level Domain: COM (Commercial TLD)
+
+DNS Lookup
+
+IP Address: 104.17.166.5
+
+Geolocation: US (United States), N/A, N/A, N/A N/A - Google Maps
+
+Reverse DNS entry: not found
+
+2.Domain Name: steampowered.com
+
+Top Level Domain: COM (Commercial TLD)
+
+DNS Lookup
+
+IP Address: 23.217.157.23
+
+Geolocation: US (United States), MA, Massachusetts, 02142 Cambridge - Google Maps
+
+Reverse DNS: a23-217-157-23.deploy.static.akamaitechnologies.com
+
+3.Domain Name: bing.com
+
+Top Level Domain: COM (Commercial TLD)
+
+DNS Lookup
+
+IP Address: 204.79.197.200
+
+Geolocation: US (United States), WA, Washington, 98052 Redmond - Google Maps
+
+Reverse DNS: a-0001.a-msedge.net
+
+4.Domain Name: stores.shoppersdrugmart.ca
+
+Top Level Domain: CA (Canada)
+
+DNS Lookup
+
+IP Address: 23.64.104.231
+
+Geolocation: US (United States), MA, Massachusetts, 02142 Cambridge - Google Maps
+
+Reverse DNS: a23-64-104-231.deploy.static.akamaitechnologies.com
+
+5.Domain Name: mcdonalds.com
+
+Top Level Domain: COM (Commercial TLD)
+
+DNS Lookup
+
+IP Address: 52.6.111.61
+
+Geolocation: US (United States), VA, Virginia, 20149 Ashburn - Google Maps
+
+Reverse DNS: ec2-52-6-111-61.compute-1.amazonaws.com

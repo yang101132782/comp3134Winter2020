@@ -1,0 +1,5 @@
+--- 178.128.239.9 ping statistics ---
+22 packets transmitted, 22 received, 0% packet loss, time 21494ms
+rtt min/avg/max/mdev = 0.055/0.081/0.102/0.014 ms
+
+
