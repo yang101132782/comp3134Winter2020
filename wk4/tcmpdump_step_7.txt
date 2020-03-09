@@ -1,0 +1,21 @@
+root@lamp-s-1vcpu-1gb-tor1-01:~# tcpdump -r 0001.pcap
+reading from file 0001.pcap, link-type EN10MB (Ethernet)
+16:36:13.566421 IP lamp-s-1vcpu-1gb-tor1-01.ssh > 198.96.85.21.57248: Flags [P.], seq 2226935067:2226935103, ack 2121612363, win 313, length 36
+16:36:13.569213 IP lamp-s-1vcpu-1gb-tor1-01.ssh > 198.96.85.21.57248: Flags [P.], seq 36:80, ack 1, win 313, length 44
+16:36:13.569328 IP lamp-s-1vcpu-1gb-tor1-01.ssh > 198.96.85.21.57248: Flags [P.], seq 80:188, ack 1, win 313, length 108
+16:36:13.569405 IP lamp-s-1vcpu-1gb-tor1-01.ssh > 198.96.85.21.57248: Flags [P.], seq 188:224, ack 1, win 313, length 36
+16:36:13.576038 IP 198.96.85.21.57248 > lamp-s-1vcpu-1gb-tor1-01.ssh: Flags [.], ack 80, win 4102, length 0
+16:36:13.577844 IP 198.96.85.21.57248 > lamp-s-1vcpu-1gb-tor1-01.ssh: Flags [.], ack 224, win 4101, length 0
+16:36:19.908800 IP lamp-s-1vcpu-1gb-tor1-01.ssh > 205.206.136.88.rev.sfr.net.44458: Flags [P.], seq 3582785892:3582785972, ack 528312431, win 236, options [nop,nop,TS val 547712222 ecr 1483134593], length 80
+16:36:21.419400 IP lamp-s-1vcpu-1gb-tor1-01.ssh > 205.206.136.88.rev.sfr.net.44458: Flags [F.], seq 80, ack 1, win 236, options [nop,nop,TS val 547713732 ecr 1483134593], length 0
+16:36:27.467814 IP ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894 > lamp-s-1vcpu-1gb-tor1-01.http: Flags [S], seq 1483158768, win 26883, options [mss 8961,sackOK,TS val 4008436189 ecr 0,nop,wscale 7], length 0
+16:36:27.467903 IP lamp-s-1vcpu-1gb-tor1-01.http > ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894: Flags [S.], seq 2885775180, ack 1483158769, win 28960, options [mss 1460,sackOK,TS val 115278561 ecr 4008436189,nop,wscale 7], length 0
+16:36:27.536407 IP ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894 > lamp-s-1vcpu-1gb-tor1-01.http: Flags [.], ack 1, win 211, options [nop,nop,TS val 4008436258 ecr 115278561], length 0
+16:36:27.536450 IP ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894 > lamp-s-1vcpu-1gb-tor1-01.http: Flags [P.], seq 1:20, ack 1, win 211, options [nop,nop,TS val 4008436258 ecr 115278561], length 19: HTTP
+16:36:27.536494 IP lamp-s-1vcpu-1gb-tor1-01.http > ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894: Flags [.], ack 20, win 227, options [nop,nop,TS val 115278629 ecr 4008436258], length 0
+16:36:37.536888 IP ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894 > lamp-s-1vcpu-1gb-tor1-01.http: Flags [F.], seq 20, ack 1, win 211, options [nop,nop,TS val 4008446259 ecr 115278629], length 0
+16:36:37.537107 IP lamp-s-1vcpu-1gb-tor1-01.http > ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894: Flags [F.], seq 1, ack 21, win 227, options [nop,nop,TS val 115288630 ecr 4008446259], length 0
+16:36:37.605211 IP ec2-18-144-99-202.us-west-1.compute.amazonaws.com.60894 > lamp-s-1vcpu-1gb-tor1-01.http: Flags [.], ack 2, win 211, options [nop,nop,TS val 4008446327 ecr 115288630], length 0
+^C16:36:44.399478 IP 185.176.27.98.53850 > lamp-s-1vcpu-1gb-tor1-01.14248: Flags [S], seq 1727414784, win 1024, length 0
+
+root@lamp-s-1vcpu-1gb-tor1-01:~#

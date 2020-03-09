@@ -1,0 +1,274 @@
+IPTABLES(8)                                               iptables 1.6.1                                               IPTABLES(8)
+
+NAME
+       iptables/ip6tables — administration tool for IPv4/IPv6 packet filtering and NAT
+
+SYNOPSIS
+       iptables [-t table] {-A|-C|-D} chain rule-specification
+
+       ip6tables [-t table] {-A|-C|-D} chain rule-specification
+
+       iptables [-t table] -I chain [rulenum] rule-specification
+
+       iptables [-t table] -R chain rulenum rule-specification
+
+       iptables [-t table] -D chain rulenum
+
+       iptables [-t table] -S [chain [rulenum]]
+
+       iptables [-t table] {-F|-L|-Z} [chain [rulenum]] [options...]
+
+       iptables [-t table] -N chain
+
+       iptables [-t table] -X [chain]
+
+       iptables [-t table] -P chain target
+
+       iptables [-t table] -E old-chain-name new-chain-name
+
+       rule-specification = [matches...] [target]
+
+       match = -m matchname [per-match-options]
+
+       target = -j targetname [per-target-options]
+
+DESCRIPTION
+       Iptables  and  ip6tables  are  used to set up, maintain, and inspect the tables of IPv4 and IPv6 packet filter rules in the
+       Linux kernel.  Several different tables may be defined.  Each table contains a number of built-in chains and may also  con‐
+       tain user-defined chains.
+
+       Each chain is a list of rules which can match a set of packets.  Each rule specifies what to do with a packet that matches.
+       This is called a `target', which may be a jump to a user-defined chain in the same table.
+
+TARGETS
+       A firewall rule specifies criteria for a packet and a target.  If the packet does not match, the next rule in the chain  is
+       examined;  if  it  does match, then the next rule is specified by the value of the target, which can be the name of a user-
+       defined chain, one of the targets described in iptables-extensions(8), or one of the special values ACCEPT, DROP or RETURN.
+
+       ACCEPT means to let the packet through.  DROP means to drop the packet on the floor.  RETURN  means  stop  traversing  this
+       chain  and resume at the next rule in the previous (calling) chain.  If the end of a built-in chain is reached or a rule in
+       a built-in chain with target RETURN is matched, the target specified by the chain policy determines the fate of the packet.
+
+TABLES
+       There are currently five independent tables (which tables are present at any  time  depends  on  the  kernel  configuration
+       options and which modules are present).
+
+       -t, --table table
+              This  option  specifies  the packet matching table which the command should operate on.  If the kernel is configured
+              with automatic module loading, an attempt will be made to load the appropriate module for that table if  it  is  not
+              already there.
+
+              The tables are as follows:
+
+              filter:
+                  This  is  the default table (if no -t option is passed). It contains the built-in chains INPUT (for packets des‐
+                  tined to local sockets), FORWARD (for packets being routed through the box), and OUTPUT  (for  locally-generated
+                  packets).
+
+              nat:
+                  This  table is consulted when a packet that creates a new connection is encountered.  It consists of four built-
+                  ins: PREROUTING (for altering packets as soon as they come in), INPUT (for altering packets destined  for  local
+
+
+
+root@lamp-s-1vcpu-1gb-tor1-01:~# iptables -L -v
+Chain INPUT (policy DROP 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+ 423K   69M f2b-sshd   tcp  --  any    any     anywhere             anywhere             multiport dports ssh
+ 569K  299M ufw-before-logging-input  all  --  any    any     anywhere             anywhere
+ 569K  299M ufw-before-input  all  --  any    any     anywhere             anywhere
+ 132K 7978K ufw-after-input  all  --  any    any     anywhere             anywhere
+93507 5999K ufw-after-logging-input  all  --  any    any     anywhere             anywhere
+93507 5999K ufw-reject-input  all  --  any    any     anywhere             anywhere
+93507 5999K ufw-track-input  all  --  any    any     anywhere             anywhere
+
+Chain FORWARD (policy DROP 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 ufw-before-logging-forward  all  --  any    any     anywhere             anywhere
+    0     0 ufw-before-forward  all  --  any    any     anywhere             anywhere
+    0     0 ufw-after-forward  all  --  any    any     anywhere             anywhere
+    0     0 ufw-after-logging-forward  all  --  any    any     anywhere             anywhere
+    0     0 ufw-reject-forward  all  --  any    any     anywhere             anywhere
+    0     0 ufw-track-forward  all  --  any    any     anywhere             anywhere
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+ 651K  154M ufw-before-logging-output  all  --  any    any     anywhere             anywhere
+ 651K  154M ufw-before-output  all  --  any    any     anywhere             anywhere
+21345 1280K ufw-after-output  all  --  any    any     anywhere             anywhere
+21345 1280K ufw-after-logging-output  all  --  any    any     anywhere             anywhere
+21345 1280K ufw-reject-output  all  --  any    any     anywhere             anywhere
+21345 1280K ufw-track-output  all  --  any    any     anywhere             anywhere
+
+Chain f2b-sshd (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+ 345K   63M RETURN     all  --  any    any     anywhere             anywhere
+
+Chain ufw-after-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-after-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+  109  8505 ufw-skip-to-policy-input  udp  --  any    any     anywhere             anywhere             udp dpt:netbios-ns
+   10   288 ufw-skip-to-policy-input  udp  --  any    any     anywhere             anywhere             udp dpt:netbios-dgm
+ 1055 53712 ufw-skip-to-policy-input  tcp  --  any    any     anywhere             anywhere             tcp dpt:netbios-ssn
+37428 1915K ufw-skip-to-policy-input  tcp  --  any    any     anywhere             anywhere             tcp dpt:microsoft-ds
+   10   456 ufw-skip-to-policy-input  udp  --  any    any     anywhere             anywhere             udp dpt:bootps
+   11   513 ufw-skip-to-policy-input  udp  --  any    any     anywhere             anywhere             udp dpt:bootpc
+    0     0 ufw-skip-to-policy-input  all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type BROADCAST
+
+Chain ufw-after-logging-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 LOG        all  --  any    any     anywhere             anywhere             limit: avg 3/min burst 10 LOG level warning prefix "[UFW BLOCK] "
+
+Chain ufw-after-logging-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+84585 4351K LOG        all  --  any    any     anywhere             anywhere             limit: avg 3/min burst 10 LOG level warning prefix "[UFW BLOCK] "
+
+Chain ufw-after-logging-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-after-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-before-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 ACCEPT     all  --  any    any     anywhere             anywhere             ctstate RELATED,ESTABLISHED
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp destination-unreachable
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp time-exceeded
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp parameter-problem
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp echo-request
+    0     0 ufw-user-forward  all  --  any    any     anywhere             anywhere
+
+Chain ufw-before-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+ 6072  509K ACCEPT     all  --  lo     any     anywhere             anywhere
+ 319K  265M ACCEPT     all  --  any    any     anywhere             anywhere             ctstate RELATED,ESTABLISHED
+51739   22M ufw-logging-deny  all  --  any    any     anywhere             anywhere             ctstate INVALID
+51739   22M DROP       all  --  any    any     anywhere             anywhere             ctstate INVALID
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp destination-unreachable
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp time-exceeded
+    0     0 ACCEPT     icmp --  any    any     anywhere             anywhere             icmp parameter-problem
+ 6034  272K ACCEPT     icmp --  any    any     anywhere             anywhere             icmp echo-request
+    0     0 ACCEPT     udp  --  any    any     anywhere             anywhere             udp spt:bootps dpt:bootpc
+ 186K   11M ufw-not-local  all  --  any    any     anywhere             anywhere
+    0     0 ACCEPT     udp  --  any    any     anywhere             224.0.0.251          udp dpt:mdns
+    0     0 ACCEPT     udp  --  any    any     anywhere             239.255.255.250      udp dpt:1900
+ 186K   11M ufw-user-input  all  --  any    any     anywhere             anywhere
+
+Chain ufw-before-logging-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-before-logging-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-before-logging-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-before-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+ 6072  509K ACCEPT     all  --  any    lo      anywhere             anywhere
+ 623K  153M ACCEPT     all  --  any    any     anywhere             anywhere             ctstate RELATED,ESTABLISHED
+21345 1280K ufw-user-output  all  --  any    any     anywhere             anywhere
+
+Chain ufw-logging-allow (0 references)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 LOG        all  --  any    any     anywhere             anywhere             limit: avg 3/min burst 10 LOG level warning prefix "[UFW ALLOW] "
+
+Chain ufw-logging-deny (2 references)
+ pkts bytes target     prot opt in     out     source               destination
+48696   21M RETURN     all  --  any    any     anywhere             anywhere             ctstate INVALID limit: avg 3/min burst 10
+ 2734 1350K LOG        all  --  any    any     anywhere             anywhere             limit: avg 3/min burst 10 LOG level warning prefix "[UFW BLOCK] "
+
+Chain ufw-not-local (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+ 186K   11M RETURN     all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type LOCAL
+    0     0 RETURN     all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type MULTICAST
+    0     0 RETURN     all  --  any    any     anywhere             anywhere             ADDRTYPE match dst-type BROADCAST
+    0     0 ufw-logging-deny  all  --  any    any     anywhere             anywhere             limit: avg 3/min burst 10
+    0     0 DROP       all  --  any    any     anywhere             anywhere
+
+Chain ufw-reject-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-reject-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-reject-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-skip-to-policy-forward (0 references)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 DROP       all  --  any    any     anywhere             anywhere
+
+Chain ufw-skip-to-policy-input (7 references)
+ pkts bytes target     prot opt in     out     source               destination
+38623 1978K DROP       all  --  any    any     anywhere             anywhere
+
+Chain ufw-skip-to-policy-output (0 references)
+ pkts bytes target     prot opt in     out     source               destination
+    0     0 ACCEPT     all  --  any    any     anywhere             anywhere
+
+Chain ufw-track-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-track-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-track-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+15205  882K ACCEPT     tcp  --  any    any     anywhere             anywhere             ctstate NEW
+ 1417  106K ACCEPT     udp  --  any    any     anywhere             anywhere             ctstate NEW
+
+Chain ufw-user-forward (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-user-input (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+36846 2176K            tcp  --  any    any     anywhere             anywhere             tcp dpt:ssh ctstate NEW recent: SET name: DEFAULT side: source mask: 255.255.255.255
+  241 12680 ufw-user-limit  tcp  --  any    any     anywhere             anywhere             tcp dpt:ssh ctstate NEW recent: UPDATE seconds: 30 hit_count: 6 name: DEFAULT side: source mask: 255.255.255.255
+36605 2164K ufw-user-limit-accept  tcp  --  any    any     anywhere             anywhere             tcp dpt:ssh
+ 4679  269K ACCEPT     tcp  --  any    any     anywhere             anywhere             tcp dpt:https
+12084  532K ACCEPT     tcp  --  any    any     anywhere             anywhere             tcp dpt:http
+
+Chain ufw-user-limit (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+  182  9940 LOG        all  --  any    any     anywhere             anywhere             limit: avg 3/min burst 5 LOG level warning prefix "[UFW LIMIT BLOCK] "
+  241 12680 REJECT     all  --  any    any     anywhere             anywhere             reject-with icmp-port-unreachable
+
+Chain ufw-user-limit-accept (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+36605 2164K ACCEPT     all  --  any    any     anywhere             anywhere
+
+Chain ufw-user-logging-forward (0 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-user-logging-input (0 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-user-logging-output (0 references)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain ufw-user-output (1 references)
+ pkts bytes target     prot opt in     out     source               destination
+root@lamp-s-1vcpu-1gb-tor1-01:~#
+
+
+root@lamp-s-1vcpu-1gb-tor1-01:~# apt-get update
+Get:1 http://mirrors.digitalocean.com/ubuntu bionic InRelease [242 kB]
+Hit:2 http://ppa.launchpad.net/certbot/certbot/ubuntu bionic InRelease
+Get:3 http://mirrors.digitalocean.com/ubuntu bionic-updates InRelease [88.7 kB]
+Get:4 http://mirrors.digitalocean.com/ubuntu bionic-backports InRelease [74.6 kB]
+Get:5 http://security.ubuntu.com/ubuntu bionic-security InRelease [88.7 kB]
+Get:6 http://mirrors.digitalocean.com/ubuntu bionic-updates/main amd64 Packages [844 kB]
+Get:7 http://mirrors.digitalocean.com/ubuntu bionic-updates/restricted amd64 Packages [29.3 kB]
+Get:8 http://mirrors.digitalocean.com/ubuntu bionic-updates/universe amd64 Packages [1045 kB]
+Get:9 http://mirrors.digitalocean.com/ubuntu bionic-updates/multiverse amd64 Packages [9516 B]
+Fetched 2422 kB in 2s (1369 kB/s)
+Reading package lists... Done
+root@lamp-s-1vcpu-1gb-tor1-01:~# apt-get install updates
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package updates
+root@lamp-s-1vcpu-1gb-tor1-01:~#
