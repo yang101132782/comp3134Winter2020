@@ -1,0 +1,4 @@
+$path=basename(isset($_GET['q']) ? $_GET['q'] : '.');
+if(file_exists($path)){
+  print_r(scandir($path));
+}

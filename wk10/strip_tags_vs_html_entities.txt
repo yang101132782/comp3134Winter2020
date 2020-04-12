@@ -1,0 +1,3 @@
+$path=strip_tags(isset($_GET['q']) ? $_GET['q'] : '');
+
+add strp_tags to remove the tags that might passed from user form input or url input.

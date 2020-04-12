@@ -1,0 +1,7 @@
+1)url changed to https://www.dictionary.com/browse/life?s=t
+
+2)the webpage changed to the word content which I typed in the url
+
+3)url changed to https://www.dictionary.com/noresult?term=%3Cscript%3Ealert(%27hello%27)%3C%2Fscript%3E&s=t
+
+4)No change

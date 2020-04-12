@@ -1,0 +1,5 @@
+1)	curl https://www.dictionary.com/browse/curl
+2)	curl https://www.dictionary.com/browse/curlxyz
+3)	curl http://165.227.42.212/sending_info_to_app_1.php?q=helloworld
+4)	curl http://165.227.42.212/sending_info_to_app_1.php?q=<script>document.write%28‘overwrite_everything’%29<%2Fscript>
+5)	curl http://165.227.42.212/sending_info_to_app_2.php?q=<script>document.write%28‘overwrite_everything’%29<%2Fscript>

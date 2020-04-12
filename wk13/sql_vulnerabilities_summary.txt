@@ -1,0 +1,7 @@
+1.The query cannot find any result because the active for ben is 0.Yes it is expected.
+
+
+2.The page shows "Ben" row. I think it is expected.
+
+3.The page displays all the records have firstname equal to "Ben" or have the active=1. And it is expected.
+

@@ -1,0 +1,9 @@
+
+
+Warning:  scandir(hello): failed to open dir: No such file or directory in /var/www/html/directory_traversal_part1.php on line 6
+
+
+
+Warning:  scandir(): (errno 2): No such file or directory in /var/www/html/directory_traversal_part1.php on line 6
+
+Look for directory and showed who directory path

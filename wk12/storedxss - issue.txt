@@ -1,0 +1,1 @@
+When I output the storedxss.txt, the content of the file moved to the top of HTML file.

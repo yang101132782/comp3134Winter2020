@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Yang Yang</title>
+</head>
+<body>
+<form id="form" action="home.php" method="post" onsubmit="myFunc()">
+    <label for="username">User name</label>
+    <input name="username" type="text" id="username" />
+    <button type="submit">Submit</button>
+</form>
+<script>
+    let form=document.getElementById('form');
+    form.onsubmit=function(e){
+        e.preventDefault();
+        alert("FORM SUBMIT PREVENTED");
+        document.getElementById('display').innerHTML= document.getElementById('username').value;
+    }
+    function myFunc() {
+        //doesn't work as preventDefault()
+        document.getElementById('display').innerHTML= document.getElementById('username').value;
+    }
+</script>
+<div id="display"></div>
+</body>
+</html>

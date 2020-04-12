@@ -1,0 +1,42 @@
+Use PHP script to comment the code, so html render the page without php backend code.
+
+
+
+
+<?php
+?>
+
+<html>
+<header>
+</header>
+<body>
+<h1>This is an example of an H1 header tag</h1>
+<?php
+
+/*--Created by YuShi1 with employee id: 1+1=2--*/
+?>
+
+
+<h2>This is H2 tag</h2>
+<?php
+/*--Created by Shi2 with employee id: 2+2=4--*/
+?>
+<h3>This is H3 tag</h3>
+<?php
+/*--Created by Yu3 with employee id: 3+3=6--*/
+?>
+<h4>This is H4 tag</h4>
+<?php
+/*--Created by David4 with employee id: 4+4=8--*/
+?>
+<h5>This is H5 tag</h5>
+<?php
+/*--Created by LittleAndrew5 with employee id: 5+5=10--*/
+?>
+<h6>This is H6 tag</h6>
+<?php
+/*--Created by Melani6 with employee id: 6+6=12--*/
+?>
+</body>
+</html>
+
